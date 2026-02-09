@@ -1,11 +1,11 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "url-shortener",
+	"name": "smalito",
 	"main": "src/index.ts",
 	"compatibility_date": "2026-02-05",
 	"preview_urls": false, 
 	"assets": {
-		"directory": "./public/views",
+		"directory": "./public/",
 		"binding": "ASSETS",
 		"run_worker_first": true
 	},

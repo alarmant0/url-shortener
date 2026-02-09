@@ -1,20 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>.</title>
-	</head>
-	<body>
-		<h1 id="heading"></h1>
-		<p>This page comes from a static asset stored at `public/index.html` as configured in `wrangler.jsonc`.</p>
-		<script>
-			fetch('/message')
-				.then((resp) => resp.text())
-				.then((text) => {
-					const h1 = document.getElementById('heading');
-					h1.textContent = text;
-				});
-		</script>
-	</body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Link Shortener</title>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="glow"></div>
+
+  <main>
+    <h1>Shorten your links</h1>
+    <p class="subtitle">Simple, fast, and reliable URL shortening</p>
+
+    <div class="card">
+      <form>
+        <div class="field">
+          <label>Long URL</label>
+          <input placeholder="https://example.com/very/long/link" />
+        </div>
+
+        <div class="advanced" id="advanced">
+          <div class="field" style="animation-delay: 0s">
+            <label>Custom short code</label>
+            <input placeholder="my-link" />
+          </div>
+        </div>
+
+        <div class="toggle" onclick="toggleAdvanced()">
+          ⚙ Advanced options
+        </div>
+
+        <div class="actions">
+          <button type="button">Shorten link</button>
+        </div>
+
+        <div class="result" id="result">
+          <span>https://sho.rt/abc123</span>
+          <button type="button">Copy</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    function toggleAdvanced() {
+      document.getElementById("advanced").classList.toggle("open");
+    }
+    // document.getElementById("result").classList.add("show");
+  </script>
+</body>
 </html>

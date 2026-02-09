@@ -9,13 +9,9 @@ export default {
     if (url.pathname.startsWith("/api")) {
       return handleApiRequest(request);
     }
-    if (url.pathname.startsWith("/message")) {
-      return messageRequests(request);
-    }
-
     let filename = url.pathname;
     if (filename === "/") {
-      filename = "/index.html";
+      filename = "/views/index.html";
     } 
 
     const assetUrl = new URL(filename, request.url);
