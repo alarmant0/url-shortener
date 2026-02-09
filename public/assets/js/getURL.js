@@ -23,7 +23,10 @@ function getTinyURL() {
         return response.json();
     })
     .then(data => {
-        console.log(data);
+    	const result = document.getElementById("result");
+    	const full_url = data.url;
+    	result.textContent = full_url;
+    	result.classList.add("show");
     })
     .catch(error => {
         console.error('Error creating TinyURL:', error);

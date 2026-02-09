@@ -4,14 +4,16 @@ import { cput } from "../services/controller.ts";
 const ALPHABET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 export async function createTinyURL(url: string, env: Env): Promise<string> {
-    let available = false;
     let small_url = "";
-    while (!available) {
+    while (true) {
         small_url = "";
         for (let i=0 ;i <= 7 ; i++) {
             small_url+=getRandomLetter();
         }
-        available = await isAvailable(small_url, env);
+        let available = await isAvailable(small_url, env);
+        if (available === null) {
+            break;
+        }
     }
     let value = await cput(small_url, url, env);
     return small_url;

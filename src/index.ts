@@ -6,13 +6,11 @@ import { isAvailable } from "./services/controller.ts";
 export default {
   async fetch(request, env): Promise<Response> {
     const url = new URL(request.url);
-
     if (url.pathname.startsWith("/api")) {
       return handleApiRequest(request, env);
     }
     const code = url.pathname.slice(1).trim();
     if (isValidShortCode(code)) {
-      console.log("VALID");
       const smalito_url = "https://smalito.com/" + code;
       const full_url = await isAvailable(smalito_url, env);
       if (isAvailable !== null) {
