@@ -1,4 +1,5 @@
 import { createTinyURL } from "../utils/shortener.ts";
+import { verifyTurnstile } from "../utils/verifyTurnstile.ts";
 
 export async function handleApiRequest(request: Request, env: Env): Promise<Response> {
 
@@ -34,18 +35,45 @@ export async function handleApiRequest(request: Request, env: Env): Promise<Resp
             );
         }
 
-        const { full_url, custom_code } = body;
+        const { full_url, custom_code, turnstileToken } = body;
 
         if (!full_url) {
             return new Response(
-            JSON.stringify({ error: "Missing required field: full_url" }),
-            {
-                status: 400,
-                headers: { "Content-Type": "application/json" }
-            }
+                JSON.stringify({ error: "Missing required field: full_url" }),
+                {
+                    status: 400,
+                    headers: { "Content-Type": "application/json" }
+                }
+            );
+        }
+        if (!turnstileToken) {
+            return new Response(
+                JSON.stringify({ error: "Missing Turnstile token" }),
+                {
+                    status: 400,
+                    headers: { "Content-Type": "application/json" }
+                }
             );
         }
 
+        const ip = request.headers.get("CF-Connecting-IP") ?? "";
+
+        const isValid = await verifyTurnstile(
+            turnstileToken,
+            ip,
+            env.TURNSTILE_SECRET
+        );
+
+        if (!isValid && url.hostname !== "127.0.0.1") { // change this
+            return new Response(
+                JSON.stringify({ error: "Turnstile verification failed" }),
+                {
+                    status: 403,
+                    headers: { "Content-Type": "application/json" }
+                }
+            );
+        }
+        
         const shortcode = await createTinyURL(full_url, custom_code, env);
 
         if (shortcode === "Error") {

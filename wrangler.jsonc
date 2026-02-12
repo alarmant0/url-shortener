@@ -25,8 +25,13 @@
 	],
 	"kv_namespaces": [
 		{
-			"binding": "urls",
+			"binding": "URLS",
 			"id": "22db0033fdb24db1af26ae018fa9fe1b",
+			"remote": true
+		},
+		{
+			"binding": "BLOCKED_IPS",
+			"id": "ba9bf67f7ebd42eb92533da5fa6e2e7b",
 			"remote": true
 		}
 	]

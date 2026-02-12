@@ -4,11 +4,12 @@ export async function handleAdminRequest(request: Request, env: Env): Promise<Re
     const pathname = url.pathname.split("/")[1];
     const code = url.pathname.split("/")[3];
 	if (endpoint === "get") {
-        const all_links = await env.urls.list();
+        console.log("HERE") // -----------------------------
+        const all_links = await env.URLS.list();
         const info = [];
 
         for (const element of all_links.keys) {
-            const linkStr = await env.urls.get(element.name);
+            const linkStr = await env.URLS.get(element.name);
             if (!linkStr) continue;
             const link = JSON.parse(linkStr);
             const _smalito_url = `${url.origin}/${element.name}`;
@@ -29,7 +30,7 @@ export async function handleAdminRequest(request: Request, env: Env): Promise<Re
         return new Response(JSON.stringify(body), { headers: { "Content-Type": "application/json" } });
     }
     if (endpoint === "delete") {
-    	await env.urls.delete(code);
+    	await env.URLS.delete(code);
     	return new Response("Successful delete", {
 	        status: 200
 	    });

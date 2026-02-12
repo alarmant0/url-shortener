@@ -7,7 +7,8 @@ import { handleAdminRequest } from "./routes/admin"
 export default {
   async fetch(request, env): Promise<Response> {
     const url = new URL(request.url)
-    const pathname = url.pathname
+    let pathname = url.pathname
+    // API LOGIC
     if (pathname.startsWith("/api") && request.method !== "GET") {
       const host = url.host
       const ip = request.headers.get("CF-Connecting-IP") ?? "unknown"
@@ -38,13 +39,12 @@ export default {
       }
     }
     //
-
-    let endpoint = url.pathname;
-    if (endpoint === "/") {
-      endpoint = "index.html";
+    // ASSETS LOGIC
+    if (pathname === "/") {
+      pathname = "index.html";
     } 
 
-    const assetUrl = new URL(endpoint, request.url);
+    const assetUrl = new URL(pathname, request.url);
 
     const assetRequest = new Request(assetUrl.toString(), {
       method: "GET",

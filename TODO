@@ -1,9 +1,9 @@
  Coding:
 
- - Rate limiter (falta implementar no server side)
  - Delete links
+ - Clean code
+ // ATE HOJE
  - Add accounts (google log in option)
- - Redirect from http -> https
  - Add Ads to the site
  - Remove hardcoded secrets
  - Clean code
