@@ -8,7 +8,6 @@
  - Clean code
  - Finish R2 implementation
  - Add Ads to the site
- - Remove hardcoded secrets
  - Maybe implementar um R2
  - Add email verification (when creating account)
  - See Cloudflare Hyperdrive
@@ -28,6 +27,7 @@
   - Add http methods to ifs
   - Block Ips that are rate limited
   - Add hashing to passwords
+  - Remove hardcoded secrets
 
  Random:
 
